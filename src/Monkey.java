@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Monkey {
 
-	private static int _monkeyNum = 0;
+	private static int monkeyNum = 0;
 
 	private int _thisMonkeyNum = 0;
 
@@ -108,8 +108,8 @@ public class Monkey {
 	 */
 
 	public Monkey() {
-		_thisMonkeyNum = _monkeyNum;
-		_monkeyNum++;
+		_thisMonkeyNum = monkeyNum;
+		monkeyNum++;
 		_id = generateId(_thisMonkeyNum);
 	}
 
