@@ -2,9 +2,23 @@ import java.util.*;
 
 public class MonkeySim {
 
-	private static List<Monkey> _monkeyList = new LinkedList<Monkey>();
-
+	public static boolean verbose = true;
 	public static final int HEADER = 50000;
+	
+	private List<Monkey> ml;
+	private MonkeyWatcher mw;
+	private Monkey monkey;
+	
+	MonkeySim(int startingMonkey) {
+		ml = new LinkedList<Monkey>();
+		mw = new MonkeyWatcher();	
+		for (int j = 0; j < startingMonkey + 1; j++) {
+			ml.add(new Monkey());
+		}
+		ml.get(startingMonkey).throwBananaTo(new Banana());
+
+
+	}
 
 	/**
 	 * Print out use message and exit with error code 1.
@@ -54,7 +68,7 @@ public class MonkeySim {
 	 * @return Monkey first monkey in list
 	 */
 
-	public static Monkey getFirstMonkey(List<Monkey> ml) {
+	public Monkey getFirstMonkey() {
 		int x = ml.size() - 1;
 		int f = x * 33;
 		int r = 17;
@@ -84,7 +98,7 @@ public class MonkeySim {
 	 * @return String string version of round
 	 */
 
-	public static String stringifyResults(int c, Monkey m, Monkey m2) {
+	public String stringifyResults(int c, Monkey m, Monkey m2) {
 		String toReturn = new String("");
 		try {
 			for (int j = 0; j < HEADER; j++) {
@@ -110,7 +124,7 @@ public class MonkeySim {
 	 * @return int number of monkey w/ banana
 	 */
 
-	public static int monkeyWithBanana(List<Monkey> ml) {
+	public int monkeyWithBanana() {
 		for (int j = 0; j < ml.size(); j++) {
 			Monkey m = ml.get(j);
 			if (m.hasBanana()) {
@@ -128,17 +142,17 @@ public class MonkeySim {
 
 	}
 
-	public static int addMoreMonkeys(int n, List<Monkey> ml) {
+	public int addMoreMonkeys(int n) {
 		while (ml.size() <= n) {
 			ml.add(new Monkey());
 		}
 		return ml.size();
 	}
 
-	public static int nextMonkeyAndResize(Monkey m, List<Monkey> ml) {
+	public int nextMonkeyAndResize(Monkey m) {
 		int n = m.nextMonkey();
 		if (n > ml.size()) {
-			int zarg = addMoreMonkeys(n, ml);
+			int zarg = addMoreMonkeys(n);
 		}
 
 		return n;
@@ -152,13 +166,13 @@ public class MonkeySim {
 	 * @return int number of rounds taken to get to first monkey
 	 */
 
-	public static int runSimulation(List<Monkey> ml, MonkeyWatcher mw) {
+	public int runSimulation() {
 		int nextMonkey = -1;
 
-		while (!getFirstMonkey(ml).hasBanana()) {
+		while (!getFirstMonkey().hasBanana()) {
 			mw.incrementRounds();
-			Monkey m = ml.get(monkeyWithBanana(ml));
-			int n = nextMonkeyAndResize(m, ml);
+			Monkey m = ml.get(monkeyWithBanana());
+			int n = nextMonkeyAndResize(m);
 			Monkey m2 = ml.get(n);
 			Banana b = m.throwBananaFrom();
 			m2.throwBananaTo(b);
@@ -177,19 +191,10 @@ public class MonkeySim {
 	 */
 
 	public static void main(String[] args) {
-
 		int s = getStartingMonkeyNum(args);
-		Monkey tmpMonkey;
-		Banana b = new Banana();
-		MonkeyWatcher mw = new MonkeyWatcher();
-
-		for (int j = 0; j < s + 1; j++) {
-			tmpMonkey = new Monkey();
-			_monkeyList.add(tmpMonkey);
-		}
-		_monkeyList.get(s).throwBananaTo(b);
-
-		int numRounds = runSimulation(_monkeyList, mw);
+		MonkeySim monkeySim = new MonkeySim(s);
+		
+		int numRounds = monkeySim.runSimulation();
 		System.out.println("Completed in " + numRounds + " rounds.");
 	}
 }
