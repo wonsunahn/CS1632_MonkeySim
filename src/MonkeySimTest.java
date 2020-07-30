@@ -5,9 +5,13 @@ import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.runners.MethodSorters;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +25,9 @@ public class MonkeySimTest {
 	private ByteArrayOutputStream out;
 	private PrintStream stdout;
 
+	@Rule
+    public Timeout globalTimeout = Timeout.millis(10000);
+	
 	@Before
 	public void setUp() {
 		out = new ByteArrayOutputStream();
