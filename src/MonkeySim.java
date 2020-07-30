@@ -7,7 +7,6 @@ public class MonkeySim {
 	
 	private List<Monkey> ml;
 	private MonkeyWatcher mw;
-	private Monkey monkey;
 	
 	MonkeySim(int startingMonkey) {
 		ml = new LinkedList<Monkey>();
@@ -16,8 +15,6 @@ public class MonkeySim {
 			ml.add(new Monkey());
 		}
 		ml.get(startingMonkey).throwBananaTo(new Banana());
-
-
 	}
 
 	/**
@@ -190,7 +187,7 @@ public class MonkeySim {
 	 * @param args - Array of arguments from cmd line
 	 */
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InfiniteLoopException {
 		int s = getStartingMonkeyNum(args);
 		MonkeySim monkeySim = new MonkeySim(s);
 		
