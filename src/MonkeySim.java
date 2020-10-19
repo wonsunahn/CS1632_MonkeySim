@@ -2,20 +2,7 @@ import java.util.*;
 
 public class MonkeySim {
 
-	public static boolean verbose = true;
-	public static final int HEADER = 50000;
-	
-	private List<Monkey> ml;
-	private MonkeyWatcher mw;
-	
-	MonkeySim(int startingMonkey) {
-		ml = new LinkedList<Monkey>();
-		mw = new MonkeyWatcher();	
-		for (int j = 0; j < startingMonkey + 1; j++) {
-			ml.add(new Monkey());
-		}
-		ml.get(startingMonkey).throwBananaTo(new Banana());
-	}
+	private static final int HEADER = 50000;
 
 	/**
 	 * Print out use message and exit with error code 1.
@@ -65,7 +52,8 @@ public class MonkeySim {
 	 * @return Monkey first monkey in list
 	 */
 
-	public Monkey getFirstMonkey() {
+	public Monkey getFirstMonkey(List<Monkey> ml) {
+
 		int x = ml.size() - 1;
 		int f = x * 33;
 		int r = 17;
@@ -121,7 +109,7 @@ public class MonkeySim {
 	 * @return int number of monkey w/ banana
 	 */
 
-	public int monkeyWithBanana() {
+	public int monkeyWithBanana(List<Monkey> ml) {
 		for (int j = 0; j < ml.size(); j++) {
 			Monkey m = ml.get(j);
 			if (m.hasBanana()) {
@@ -139,17 +127,17 @@ public class MonkeySim {
 
 	}
 
-	public int addMoreMonkeys(int n) {
+	public int addMoreMonkeys(int n, List<Monkey> ml) {
 		while (ml.size() <= n) {
 			ml.add(new Monkey());
 		}
 		return ml.size();
 	}
 
-	public int nextMonkeyAndResize(Monkey m) {
+	public int nextMonkeyAndResize(Monkey m, List<Monkey> ml) {
 		int n = m.nextMonkey();
 		if (n > ml.size()) {
-			int zarg = addMoreMonkeys(n);
+			int zarg = addMoreMonkeys(n, ml);
 		}
 
 		return n;
@@ -163,13 +151,13 @@ public class MonkeySim {
 	 * @return int number of rounds taken to get to first monkey
 	 */
 
-	public int runSimulation() {
+	public int runSimulation(List<Monkey> ml, MonkeyWatcher mw) {
 		int nextMonkey = -1;
 
-		while (!getFirstMonkey().hasBanana()) {
+		while (!getFirstMonkey(ml).hasBanana()) {
 			mw.incrementRounds();
-			Monkey m = ml.get(monkeyWithBanana());
-			int n = nextMonkeyAndResize(m);
+			Monkey m = ml.get(monkeyWithBanana(ml));
+			int n = nextMonkeyAndResize(m, ml);
 			Monkey m2 = ml.get(n);
 			Banana b = m.throwBananaFrom();
 			m2.throwBananaTo(b);
@@ -187,11 +175,22 @@ public class MonkeySim {
 	 * @param args - Array of arguments from cmd line
 	 */
 
-	public static void main(String[] args) throws InfiniteLoopException {
+	public static void main(String[] args) {
+
 		int s = getStartingMonkeyNum(args);
-		MonkeySim monkeySim = new MonkeySim(s);
-		
-		int numRounds = monkeySim.runSimulation();
+		Monkey tmpMonkey;
+		Banana b = new Banana();
+		MonkeyWatcher mw = new MonkeyWatcher();
+
+		List<Monkey> monkeyList = new LinkedList<Monkey>();
+		for (int j = 0; j < s + 1; j++) {
+			tmpMonkey = new Monkey();
+			monkeyList.add(tmpMonkey);
+		}
+		monkeyList.get(s).throwBananaTo(b);
+
+		MonkeySim monkeySim = new MonkeySim();
+		int numRounds = monkeySim.runSimulation(monkeyList, mw);
 		System.out.println("Completed in " + numRounds + " rounds.");
 	}
 }
