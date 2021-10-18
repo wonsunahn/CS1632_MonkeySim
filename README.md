@@ -11,11 +11,11 @@
   * [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Summer Semester 2021 - Exercise 4
+Fall Semester 2021 - Exercise 4
 
-* DUE: July 12 (Monday), 2021 06:30 PM
+* DUE: Nov 8 (Monday), 2021 09:30 AM
 
-**GitHub Classroom Link:** https://classroom.github.com/g/6s-ZKSVw
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
@@ -304,7 +304,14 @@ all your optimizations and refactoring.  Example:
 
    ![alt text](hotspots.png "Hotspots panel after optimizations")
 
-   Make sure the "Hot spots" window lists the methods sorted in descending order of running time (Self Time) when you export.  You can export by clicking on the down arrow beside the "Export data to file or image" icon (that looks like a floppy disk) to pull down the menu and then clicking on "Export Hotspots".  You are given an option between CSV, HTML, XML, and PNG.  Choose the PNG option and save to hotspots.png.  Next, convert hotspots.png to a PDF file and submit to GradeScope at the "Exercise 4 Profile" link.  Make sure the picture fits in one page for easy viewing and grading.
+   Make sure the "Hot spots" window lists the methods sorted in descending
+order of running time (Self Time) when you export.  You can export by clicking
+on the down arrow beside the "Export data to file or image" icon (that looks
+like a floppy disk) to pull down the menu and then clicking on "Export
+Hotspots".  You are given an option between CSV, HTML, XML, and PNG.  Choose
+the PNG option and save to hotspots.png.  Next, convert hotspots.png to a PDF
+file and submit to GradeScope at the "Exercise 4 Profile" link.  Make sure the
+picture fits in one page for easy viewing and grading.
 
 ## GradeScope Feedback
 
