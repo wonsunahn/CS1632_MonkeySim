@@ -11,11 +11,11 @@
   * [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Fall Semester 2021 - Exercise 4
+Spring Semester 2022 - Exercise 4
 
-* DUE: Oct 22 (Friday), 2021 11:59 PM
+* DUE: Mar 4 (Friday), 2022 11:59 PM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/VjHmAXWy
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
