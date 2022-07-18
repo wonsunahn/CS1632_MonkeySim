@@ -4,18 +4,21 @@
   * [MonkeySim Requirements](#monkeysim-requirements)
   * [How to Run MonkeySim](#how-to-run-monkeysim)
   * [What to do](#what-to-do)
-  * [Pinning Tests](#pinning-tests)
-  * [Submission](#submission)
-  * [GradeScope Feedback](#gradescope-feedback)
-  * [Groupwork Plan](#groupwork-plan)
-  * [Resources](#resources)
+    + [Profile to Find Candidate Methods](#profile-to-find-candidate-methods)
+    + [Write Pinning Tests for Candidate Methods](#write-pinning-tests-for-candidate-methods)
+    + [Refactor Candidate Methods](#refactor-candidate-methods)
+    + [Rerun Profile for Refactored Methods](#rerun-profile-for-refactored-methods)
+- [Submission](#submission)
+- [GradeScope Feedback](#gradescope-feedback)
+- [Groupwork Plan](#groupwork-plan)
+- [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Spring Semester 2022 - Exercise 4
+Summer Semester 2022 - Exercise 4
 
-* DUE: Mar 4 (Friday), 2022 11:59 PM
+* DUE: July 21 (Thursday), 2022 11:30 AM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/Xmy4W9eq
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
@@ -132,94 +135,141 @@ conjecture)!
 
 ## How to Run MonkeySim
 
-1. For Windows do (for running MonkeySim with argument 27):
-    ```
-    run.bat 27
-    ```
-1. For Mac / Linux do (for running MonkeySim with argument 27):
-    ```
-    bash run.sh 27
-    ```
+Let's first invoke the Maven compile phase to generate class files:
 
-Alternatively, I've created an Eclipse project for you so you can use
-Eclipse to import the existing project and run it from there.
+```
+mvn compile
+```
+
+Maven generates class files under target/classes.  Please invoke MonkeySim
+under that classpath with the example argument 4 replaced by your desired
+starting monkey number:
+
+```
+java -cp target/classes edu.pitt.cs.MonkeySim 4
+```
 
 ## What to do
 
-In order to determine the "hot spots" of the application, you will need to run
-a profiler such as VisualVM (https://visualvm.github.io/).  Using
-the profiler, determine a method you can modify to measurably increase the
-speed of the application without modifying behavior.
 
-Some tips for using VisualVM:
+### Profile to Find Candidate Methods
+
+In order to determine the "hot spots" of the application, you will need to run
+a profiler such as VisualVM.  Using the profiler, determine a method you can
+modify to measurably increase the speed of the application without modifying
+behavior.
+
+Please run the below commandline for profiling purposes.
+
+```
+java -cp target/classes edu.pitt.cs.MonkeySim 23
+```
+
+I will demonstrate how to profile in class, but if you need a refresher here
+are two helpful guides:
+
+Overview of VisualVM: https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/applications_local.html
+
+Guide to using Profiling: https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/profiler.html
+
+Some tips when using VisualVM:
 
 1. Your Java app will only show up in VisualVM **during execution**.  When the
    MonkeySim application shows up on the left panel, you need to quickly double
 click on the MonkeySim application and then click on the Profiler tab.  Then,
 on the Profiler window that shows up on the main pane, quickly click on the CPU
-button to start profiling CPU utilization.  Finally, click on the "Hot spots"
-button to get a list of methods sorted by running times.  ![alt
-text](VisualVM_profiling.png "Using VisualVM profiler") If you right click on
-one of the methods in the "Hot spots" methods list, you'll get a context menu.
-If you click on a the "Find in Forward Calls" item, you can see the call tree
-that got you to that method.
+button to start profiling CPU utilization.  
 
-1. If your app runs very quickly, you may not have time to perform the above
-   actions before the app terminates!  In that case, you may want to insert a
-sleep() at the beginning of the main() method, during which you can perform
-these actions.  For example:
+1. No matter how quick you are in starting profiling, you will have missed a
+   few seconds of program execution in the beginning.  To capture the entirety
+of execution please insert a 30 second sleep() at the beginning of the main()
+method, during which you can perform these actions.  For example:
 
    ```
    try {
-      Thread.sleep(10000);
+      Thread.sleep(30000);
    } catch (InterruptedException iex) {
    }
    ```
 
-Now you are ready to modify that method.  Remember, the program should work
-EXACTLY the same as before, except it should be faster and take up less CPU
-time.  
+   When VisualVM attaches to your program, an InterruptedException will be
+generated and your program will proceed immediately.  So don't worry about
+setting a long wait time.
 
-Refactor *four* of the most time consuming methods in MonkeySim.  You should
-not change the behavior of any of the methods; only refactor the implementation
-so that they are more efficient.  Three of the methods will be very
-straightforward because they contain obviously redundant computation.
+You will see that profile information continues to get collected as the program
+is running.  Snapshots allow you to freeze the profile at a certain point of
+time so that you can analyze it later.  You can also save a snapshot to a file
+for later analysis.  Please review the below guide:
 
-One method (generateId) is less straightforward.  All the computation seems
-necessary to generate the monkey IDs that are displayed in the output.  Naively
-removing the ID generation will result in a different output.  Hint: Do we
-really need to generate all those IDs for the output?
+Using Snapshot feature: https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/snapshots.html
 
-This is what I got after optimizing:
-![alt text](profile.png "VisualVM snapshot after optimizations")
+VisualVM automatically asks whether to take a snapshot at the end of program
+execution.  In our case, we want to profile the entire run, so we will wait
+until the end to generate a snapshot.
 
-I gave argument 27 for the run.  Note that now the run takes approximately 3
-seconds to run, which is a marked improvement over 37 minutes for the original
-code!  Now the most time consuming method is generateId by a wide margin.  I
-could refactor generateId() further but I am satisfied at this point.  So this
-is when you pat yourself on the back and declare victory.
+After opening the snapshot tab, click on the "Hot spots" button to get a list
+of hot spot methods.  Make sure the "Hot spots" view lists the methods sorted
+in descending order of running time (Self Time).  Now let's try saving the hot
+spots list to a file.  You can export by clicking on the down arrow beside the
+save button (that looks like a floppy disk) to pull down the menu and then
+clicking on "Export Hotspots".  You are given an option between CSV, HTML, XML,
+and PNG.  Choose the PNG option and save to a file named
+**hotspots-before.png**.  Refer to the below figure while following these
+instructions.
 
-## Pinning Tests
+![alt text](VisualVM_profiling.png "Using VisualVM profiler")
 
-All the while refactoring methods to improve performance, you need to make sure
-that the functional behavior of the program does not change.  We learned that
-writing pinning tests and running them after every code change is a way of
-guaranteeing this.  Lucky for you, I have already wrote a set of pinning tests
-for you in the file MonkeySimPinningTest.java using JUnit.  You can run them
-with TestRunner.java using the following script:
+The exported hotspots-before.png file should look like the following:
 
-1. For Windows do:
-    ```
-    runTest.bat
-    ```
-1. For Mac / Linux do:
-    ```
-    bash runTest.sh
-    ```
+![alt text](hotspots-before-demo.png "Hotspots panel after optimizations")
 
-The tests pass with the original MonkeySim (obviously because the pinning tests
-are based on the existing behavior of MonkeySim).  Your job is to make sure
-that they stay that way.
+The exact runtimes will be different for you since we are running on different
+machines but the ranking should look similar.  I want you to refactor **four** of
+the most time consuming methods in MonkeySim, looking at the profile.
+
+Now, given a method such as getFirstMonkey, you may want to know in
+which context that method was called before starting optimization.  If you
+right click on one of the methods in the "Hot spots" methods list, you'll get a
+context menu.  If you click on a the "Find in Forward Calls" item, you can see
+the call tree that got you to that method.
+
+### Write Pinning Tests for Candidate Methods
+
+Before attempting to refactor the candidate methods to improve performance, you
+need a guarantee that the functional behavior of the program does not change
+due to the refactoring.  We learned that writing pinning tests and running them
+after every code change is a way of guaranteeing this.  Lucky for you, I have
+already wrote a set of pinning tests for you in the file
+MonkeySimPinningTest.java using JUnit.  You can run them as part of the Maven
+test lifecycle phase as before:
+
+```
+mvn test
+```
+
+Make sure they pass with output like the following:
+
+```
+...
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running edu.pitt.cs.MonkeySimPinningTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.755 sec
+
+Results :
+
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+...
+```
+
+The tests pass with the original MonkeySim, obviously because the pinning tests
+were based on the existing behavior of MonkeySim to begin with.  Your job is to
+make sure that they stay that way while refactoring.
 
 Now let's look at the @Before setUp() method in MonkeySimPinningTest.java
 because there a few interesting things to note there:
@@ -274,7 +324,7 @@ forced to use Java reflection to force reset that number.
    classes when I initialized the test fixture.  You may ask: isn't this
 against all we learned about unit testing?  Are we not de facto testing large
 parts of the system beyond the unit by not mocking and stubbing?  Yes,
-absolutely!  In fact, I made the conscious choice of doing systems testing
+absolutely!  In fact, I made the conscious choice of doing integration testing
 instead of unit testing for the pinning tests.  This is often done when you
 receive legacy code without any unit testing infrastructure.  Rather than look
 for "seams" in the code to construct unit tests and emulating behavior of
@@ -286,10 +336,46 @@ other techniques.  But when code modification is performed, it is done under
 the cover of systems pinning tests so any divergence in system behavior would
 be detected.
 
-    For Deliverable 4, I will ask *you* to write pinning tests yourself.  And
+    For Deliverable 4, I will ask **you** to write pinning tests yourself.  And
 for these pinning tests, I'm going to ask you to write unit pinning tests.
 
-## Submission
+### Refactor Candidate Methods
+
+Now you are ready to modify the candidate method.  Remember, the program should
+work EXACTLY the same as before, except it should be faster and take up less
+CPU time.  
+
+When refactorng the four methods, you should not change the behavior of any of
+the methods; only refactor the implementation so that they are more efficient.
+Three of the methods will be very straightforward because they contain
+obviously redundant computation.
+
+One method (generateId) is less straightforward.  All the computation seems
+necessary to generate the monkey IDs that are displayed in the output.  Naively
+removing the ID generation will result in a different output.  Hint: Do we
+really need to generate all those IDs for the output?
+
+Make sure that all the pinning tests pass after you are done.
+
+### Rerun Profile for Refactored Methods
+
+Now that you are done optimizing, rerun the profile again with the same
+argument and see if you made a satisfactory difference:
+
+```
+java -cp target/classes edu.pitt.cs.MonkeySim 23
+```
+
+Repeat the steps described above to generate a new hot spots list named
+**hotspots-after.png**. This is what I got after optimizing:
+
+![alt text](hotspots-after-demo.png "VisualVM snapshot after optimizations")
+
+Note that I achieved marked improvement for all four candidate methods.  You
+should see similar improvements.  If you do, this is when you pat yourself on
+the back and declare victory.
+
+# Submission
 
 Each pairwise group will do one submission to GradeScope as usual.  The
 submitting member must use the "View or edit group" link at the top-right
@@ -303,22 +389,14 @@ will run the autograder to grade you and give feedback.  If you get deductions,
 fix your code based on the feedback and resubmit.  Repeat until you don't get
 deductions.
 
-1. After running MonkeySim with argument 27, export the VisualVM Hotspots panel
-   to a PNG image file named hotspots.png. This should be after you have done
-all your optimizations and refactoring.  Example:
+1. Please use the [ReportTemplate.docx](ReportTemplate.docx) file provided in
+   this directory to write a short report.  A PDF version of the file is at
+[ReportTemplate.pdf](ReportTemplate.pdf).  On the first page, attach
+hotspots-before.png generated before refactoring.  On the second page, attach
+hotspots-after.png generated after refactoring.  Submit the report to
+GradeScope at the **Exercise 4 Profile** link.  
 
-   ![alt text](hotspots.png "Hotspots panel after optimizations")
-
-   Make sure the "Hot spots" window lists the methods sorted in descending
-order of running time (Self Time) when you export.  You can export by clicking
-on the down arrow beside the "Export data to file or image" icon (that looks
-like a floppy disk) to pull down the menu and then clicking on "Export
-Hotspots".  You are given an option between CSV, HTML, XML, and PNG.  Choose
-the PNG option and save to hotspots.png.  Next, convert hotspots.png to a PDF
-file and submit to GradeScope at the "Exercise 4 Profile" link.  Make sure the
-picture fits in one page for easy viewing and grading.
-
-## GradeScope Feedback
+# GradeScope Feedback
 
 It is encouraged that you submit to GradeScope early and often.  Please use the
 feedback you get on each submission to improve your code!  All the tests have
@@ -345,7 +423,7 @@ looking at the methods that I test, but please don't do that.  See if you can
 extract that information from the VisualVM tool.  The test output will not be
 so revealing on your deliverable!
 
-## Groupwork Plan
+# Groupwork Plan
 
 I expect each group member to try running VisualVM and experience profiling for
 him/herself.  After profiling, compare the four methods that each of you
@@ -356,7 +434,7 @@ refactor two methods each.  Once you are done refactoring, each of you should
 try running VisualVM again to see if you have satisfactory performance.  If
 not, repeat.
 
-## Resources
+# Resources
 
 * VisualVM Download:  
 https://visualvm.github.io/download.html

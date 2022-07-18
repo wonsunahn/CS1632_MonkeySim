@@ -1,4 +1,4 @@
--bash-4.1$ time java -cp bin MonkeySim 4
+-bash-4.1$ time java -cp target/classes edu.pitt.cs.MonkeySim 4
 //Round 1: Threw banana from Monkey (#4 / ID 223496) to Monkey (#2 / ID 223494)
 //Round 2: Threw banana from Monkey (#2 / ID 223494) to Monkey (#1 / ID 223493)
 First monkey has the banana!
@@ -8,7 +8,7 @@ real    0m0.751s
 user    0m0.726s
 sys     0m0.283s
 
--bash-4.1$ time java -cp bin MonkeySim 5
+-bash-4.1$ time java -cp target/classes edu.pitt.cs.MonkeySim 5
 //Round 1: Threw banana from Monkey (#5 / ID 223497) to Monkey (#16 / ID 223508)
 //Round 2: Threw banana from Monkey (#16 / ID 223508) to Monkey (#8 / ID 223500)
 //Round 3: Threw banana from Monkey (#8 / ID 223500) to Monkey (#4 / ID 223496)
@@ -21,7 +21,7 @@ real    0m1.749s
 user    0m1.908s
 sys     0m0.404s
 
--bash-4.1$ time java -cp bin MonkeySim 6
+-bash-4.1$ time java -cp target/classes edu.pitt.cs.MonkeySim 6
 //Round 1: Threw banana from Monkey (#6 / ID 223498) to Monkey (#3 / ID 223495)
 //Round 2: Threw banana from Monkey (#3 / ID 223495) to Monkey (#10 / ID 223502)
 //Round 3: Threw banana from Monkey (#10 / ID 223502) to Monkey (#5 / ID 223497)
@@ -37,7 +37,7 @@ real    0m2.595s
 user    0m2.834s
 sys     0m0.411s
 
--bash-4.1$ time java -cp bin MonkeySim 23
+-bash-4.1$ time java -cp target/classes edu.pitt.cs.MonkeySim 23
 //Round 1: Threw banana from Monkey (#23 / ID 223515) to Monkey (#70 / ID 223562)
 //Round 2: Threw banana from Monkey (#70 / ID 223562) to Monkey (#35 / ID 223527)
 //Round 3: Threw banana from Monkey (#35 / ID 223527) to Monkey (#106 / ID 223598)
@@ -60,7 +60,7 @@ real    0m13.817s
 user    0m14.349s
 sys     0m0.335s
 
--bash-4.1$ time java -cp bin MonkeySim 27
+-bash-4.1$ time java -cp target/classes edu.pitt.cs.MonkeySim 27
 //Round 1: Threw banana from Monkey (#27 / ID 223519) to Monkey (#82 / ID 223574)
 //Round 2: Threw banana from Monkey (#82 / ID 223574) to Monkey (#41 / ID 223533)
 //Round 3: Threw banana from Monkey (#41 / ID 223533) to Monkey (#124 / ID 223616)

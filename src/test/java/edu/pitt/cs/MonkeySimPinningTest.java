@@ -1,3 +1,5 @@
+package edu.pitt.cs;
+
 import java.io.*;
 import java.lang.reflect.*;
 
@@ -36,7 +38,7 @@ public class MonkeySimPinningTest {
 		int s = 5; // Starting monkey with the banana
 
 		// Initialize the test fixture. Note that we are creating real objects, not mock
-		// objects, even for external classes. Hence, we are de facto using systems
+		// objects, even for external classes. Hence, we are de facto doing integration
 		// testing instead of unit testing for the pinning tests.
 		ms = new MonkeySim();
 		ml = new LinkedList<Monkey>();
@@ -65,7 +67,7 @@ public class MonkeySimPinningTest {
 	@Test
 	public void testNextMonkeyAndResizeTo16() {
 		ms.nextMonkeyAndResize(ml.get(5), ml);
-		assertEquals("Monkey list size not 17 after resizing to monkey 16", 17, ml.size());
+		assertEquals("Monkey list size not 17 after resizing to monkey 16 (5*3 + 1)", 17, ml.size());
 	}
 
 	@Test
