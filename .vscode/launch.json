@@ -6,12 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
             "name": "Launch MonkeySim",
             "request": "launch",
             "mainClass": "edu.pitt.cs.MonkeySim",
