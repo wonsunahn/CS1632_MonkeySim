@@ -14,11 +14,11 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Summer Semester 2022 - Exercise 4
+Fall Semester 2022 - Exercise 4
 
-* DUE: July 21 (Thursday), 2022 11:30 AM
+* DUE: November 4 (Friday), 2022 11:59 PM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/EPQOJoFc
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
