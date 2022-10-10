@@ -18,16 +18,16 @@ Fall Semester 2022 - Exercise 4
 
 * DUE: November 4 (Friday), 2022 11:59 PM
 
-**GitHub Classroom Link:** TBD
+**GitHub Classroom Link:** https://classroom.github.com/a/3d3z65MN
 
 ## Before You Begin
 
 Let's start by downloading the VisualVM Java profiler from:
 https://visualvm.github.io/
 
-Please click on the "Download Standalone" link at the top of the project page.
-Keep the download running as you read the below instructions and install it
-when it is ready.
+Please click on the download link at the top of the project page.  Keep the
+download running as you read the below instructions and install it when it
+is ready.
 
 ## Description
 
