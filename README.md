@@ -16,7 +16,11 @@
 # Exercise 4 Performance Testing Exercise
 Fall Semester 2022 - Exercise 4
 
+<<<<<<< Updated upstream
 * DUE: November 4 (Friday), 2022 11:59 PM
+=======
+* DUE: October 14 (Friday), 2022 11:59 PM
+>>>>>>> Stashed changes
 
 **GitHub Classroom Link:** https://classroom.github.com/a/3d3z65MN
 
