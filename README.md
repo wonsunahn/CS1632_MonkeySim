@@ -16,11 +16,7 @@
 # Exercise 4 Performance Testing Exercise
 Fall Semester 2022 - Exercise 4
 
-<<<<<<< Updated upstream
-* DUE: November 4 (Friday), 2022 11:59 PM
-=======
 * DUE: October 14 (Friday), 2022 11:59 PM
->>>>>>> Stashed changes
 
 **GitHub Classroom Link:** https://classroom.github.com/a/3d3z65MN
 
@@ -196,9 +192,9 @@ method, during which you can perform these actions.  For example:
    }
    ```
 
-   When VisualVM attaches to your program, an InterruptedException will be
-generated and your program will proceed immediately.  So don't worry about
-setting a long wait time.
+   If you are able to attach VisualVM within the 30 seconds, all methods
+would be instrumeted with time measuring instructions by the time the
+program resumes.
 
 You will see that profile information continues to get collected as the program
 is running.  Snapshots allow you to freeze the profile at a certain point of
