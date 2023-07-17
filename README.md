@@ -14,9 +14,9 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Spring Semester 2023 - Exercise 4
+Summer Semester 2023 - Exercise 4
 
-* DUE: February 24 (Friday), 2023 11:59 PM
+* DUE: July 20 (Tuesday), 2023 11:30 AM
 
 **GitHub Classroom Link:** TBD
 
