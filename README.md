@@ -14,11 +14,11 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Summer Semester 2023 - Exercise 4
+Fall Semester 2023 - Exercise 4
 
-* DUE: July 20 (Tuesday), 2023 11:30 AM
+* DUE: October 11 (Friday), 2023 11:59 PM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/5BJjxKqr
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
