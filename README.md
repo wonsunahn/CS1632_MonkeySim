@@ -14,11 +14,11 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Fall Semester 2023 - Exercise 4
+Spring Semester 2024 - Exercise 4
 
-* DUE: October 11 (Friday), 2023 11:59 PM
+* DUE: February 25 (Sunday), 2024 11:59 PM
 
-**GitHub Classroom Link:** https://classroom.github.com/a/q5xNv86s
+**GitHub Classroom Link:** TBD
 
 ## Before You Begin
 
@@ -44,7 +44,7 @@ you don't want to pass that argument every time:
 and replace the \<path to JDK\> with your actual path.  In my machine, the correct setting was:
 
 ```
-visualvm_jdkhome="C:\Program Files\Eclipse Adoptium\jdk-8.0.372.7-hotspot"
+visualvm_jdkhome="C:\Program Files\Eclipse Adoptium\jdk-11.0.21.9-hotspot"
 ```
 
 ## Description
@@ -154,18 +154,19 @@ pinning test section below.
 
 ## How to Run MonkeySim
 
-Let's first invoke the Maven compile phase to generate class files:
+Let's first invoke the Maven test-compile phase to generate class files for
+both the main and test source code folders:
 
 ```
-mvn compile
+mvn test-compile
 ```
 
-Maven generates class files under target/classes.  Please invoke MonkeySim
-under that classpath with the example argument 4 replaced by your desired
-starting monkey number:
+Then you can execute MonkeySim using the exec-maven-plugin included in the
+pom.xml file, passing 4 as an argument in this example, or passing as argument
+any other desired starting monkey number:
 
 ```
-java -cp target/classes edu.pitt.cs.MonkeySim 4
+mvn exec:java "-Dexec.args=4"
 ```
 
 ## What to do
@@ -181,7 +182,7 @@ behavior.
 Please run the below commandline for profiling purposes.
 
 ```
-java -cp target/classes edu.pitt.cs.MonkeySim 23
+mvn exec:java "-Dexec.args=23"
 ```
 
 I will demonstrate how to profile in class, but if you need a refresher here
@@ -191,18 +192,13 @@ Overview of VisualVM: https://docs.oracle.com/javase/8/docs/technotes/guides/vis
 
 Guide to using Profiling: https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/profiler.html
 
-Some tips when using VisualVM:
+Follow these steps in order to attach VisualVM to your running application.
+Yes, you first have to run your application before you can attach VisualVM.
 
-1. Your Java app will only show up in VisualVM **during execution**.  When the
-   MonkeySim application shows up on the left panel, you need to quickly double
-click on the MonkeySim application and then click on the Profiler tab.  Then,
-on the Profiler window that shows up on the main pane, quickly click on the CPU
-button to start profiling CPU utilization.  
-
-1. No matter how quick you are in starting profiling, you will have missed a
+1. No matter how quick you are in attaching VisualVM, you will have missed a
    few seconds of program execution in the beginning.  To capture the entirety
 of execution please insert a 30 second sleep() at the beginning of the main()
-method, during which you can perform these actions.  For example:
+method:
 
    ```
    try {
@@ -215,14 +211,46 @@ method, during which you can perform these actions.  For example:
 would be instrumeted with time measuring instructions by the time the
 program resumes.
 
-You will see that profile information continues to get collected as the program
-is running.  Snapshots allow you to freeze the profile at a certain point of
-time so that you can analyze it later.  You can also save a snapshot to a file
-for later analysis.  Please review the below guide:
+1. After inserting the sleep, launch the app using the given commandline.
 
-Using Snapshot feature: https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/snapshots.html
+   ```
+   mvn exec:java "-Dexec.args=23"
+   ```
 
-VisualVM automatically asks whether to take a snapshot at the end of program
+1. When the org.codehaus.plexus.classworlds.launcher.Launcher app shows up on
+the left panel, double click on it, or right click on it then click "Open" in
+the context menu, to open the app for profiling.
+
+1. Then click on the "Profiler" tab to open the Profiler window.
+
+1. Then in the "Profile classes:" box under "CPU settings", replace the
+contents with the following string:
+
+   ```
+   edu.pitt.cs.**
+   ```
+
+   This will direct VisualVM to only profile classes that matches the above
+pattern (the \*\* is a wild card), and not other classes (such as classes
+inside the maven-exec-plugin).
+
+1. Then click on the "CPU" button to start profiling CPU usage.  Once you click
+on the button, you should see the status message "profiling running (12 methods
+instrumented)" below the button.  You need to perform all these steps within
+the 30 second sleep window given above.  If you need more time, just extend the
+sleep window.  If all goes well, your VisualVM window should look like below:
+
+   ![alt text](img/VisualVM_setup.png "Setting up VisualVM profiler")
+
+
+1. After the app wakes up, you will see profile information continue to get
+collected as the program is running.  Snapshots allow you to freeze the profile
+at a certain point of time so that you can analyze it later.  You can also save
+a snapshot to a file for later analysis.  Please review the below guide:
+
+   https://docs.oracle.com/javase/8/docs/technotes/guides/visualvm/snapshots.html
+
+   VisualVM automatically asks whether to take a snapshot at the end of program
 execution.  In our case, we want to profile the entire run, so we will wait
 until the end to generate a snapshot.
 
@@ -236,11 +264,11 @@ and PNG.  Choose the PNG option and save to a file named
 **hotspots-before.png**.  Refer to the below figure while following these
 instructions.
 
-![alt text](VisualVM_profiling.png "Using VisualVM profiler")
+![alt text](img/VisualVM_profiling.png "Using VisualVM profiler")
 
 The exported hotspots-before.png file should look like the following:
 
-![alt text](hotspots-before-demo.png "Hotspots panel after optimizations")
+![alt text](img/hotspots-before-demo.png "Hotspots panel after optimizations")
 
 The exact runtimes will be different for you since we are running on different
 machines but the ranking should look similar.  I want you to refactor **four** of
@@ -282,7 +310,7 @@ java -cp target/classes edu.pitt.cs.MonkeySim 23
 Repeat the steps described above to generate a new hot spots list named
 **hotspots-after.png**. This is what I got after optimizing:
 
-![alt text](hotspots-after-demo.png "VisualVM snapshot after optimizations")
+![alt text](img/hotspots-after-demo.png "VisualVM snapshot after optimizations")
 
 Note that I achieved marked improvement for all four candidate methods.  You
 should see similar improvements.  If you do, this is when you pat yourself on
