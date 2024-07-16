@@ -404,20 +404,17 @@ repeatedly recreate the list of monkeys in our setUp() method.  So we are
 forced to use Java reflection to force reset that number.
 
 1. Note how I used real objects instead of mocked objects, even for external
-   classes when I initialized the test fixture.  You may ask: isn't this
-against all we learned about unit testing?  Are we not de facto testing large
-parts of the system beyond the unit by not mocking and stubbing?  Yes,
-absolutely!  In fact, I made the conscious choice of doing integration testing
-instead of unit testing for the pinning tests.  This is often done when you
-receive legacy code without any unit testing infrastructure.  Rather than look
-for "seams" in the code to construct unit tests and emulating behavior of
-mocked objects, which is time consuming, end-to-end systems tests are slapped
-on for the purposes of pinning down existing behavior, which is much easier.
-Eventually, unit pinning tests are added into the mix, by finding seams or
-potentially modifying the code to create seams using dependency injection and
-other techniques.  But when code modification is performed, it is done under
-the cover of systems pinning tests so any divergence in system behavior would
-be detected.
+   classes when I initialized the test fixture.  I made the conscious choice of
+doing integration testing instead of unit testing for the pinning tests.  This
+is often done when you receive legacy code without any unit testing
+infrastructure.  Rather than look for "seams" in the code to construct unit
+tests and emulating behavior of mocked objects, which is time consuming,
+end-to-end systems tests are slapped on for the purposes of pinning down
+existing behavior, which is much easier.  Eventually, unit pinning tests are
+added into the mix, by finding seams or potentially modifying the code to
+create seams using dependency injection and other techniques.  But when code
+modification is performed, it is done under the cover of systems pinning tests
+so any divergence in system behavior would be detected.
 
     For Deliverable 4, I will ask **you** to write pinning tests yourself.  And
 for these pinning tests, I'm going to ask you to write unit pinning tests.
