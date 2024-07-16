@@ -14,9 +14,9 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Spring Semester 2024 - Exercise 4
+Summer Semester 2024 - Exercise 4
 
-* DUE: February 25 (Sunday), 2024 11:59 PM
+* DUE: July 18 (Thursday), 2024 8:30 AM
 
 **GitHub Classroom Link:** TBD
 
@@ -27,7 +27,7 @@ https://visualvm.github.io/
 
 Please click on the download link at the top of the project page.  Keep the
 download running as you read the below instructions and install it when it is
-ready.  The instasll package is just a ZIP file that you can decompress at a
+ready.  The install package is just a ZIP file that you can decompress at a
 location of your choice.  Under it, there is a **bin/** directory and within it
 are the application binaries.  Try launching the app and if it does not run
 properly, please read the troubleshooting guide on the download webpage.  One
@@ -286,7 +286,7 @@ Now you are ready to modify the candidate method.  Remember, the program should
 work EXACTLY the same as before, except it should be faster and take up less
 CPU time.  
 
-When refactorng the four methods, you should not change the behavior of any of
+When refactoring the four methods, you should not change the behavior of any of
 the methods; only refactor the implementation so that they are more efficient.
 Three of the methods will be very straightforward because they contain
 obviously redundant computation.
@@ -424,10 +424,6 @@ for these pinning tests, I'm going to ask you to write unit pinning tests.
 
 # Submission
 
-Each pairwise group will do one submission to GradeScope as usual.  The
-submitting member must use the "View or edit group" link at the top-right
-corner of the assignment page after submission to add his/her partner.  
-
 The submission is divided into two parts:
 
 1.  Submit the repository created by GitHub Classroom for your team to
@@ -472,11 +468,10 @@ so revealing on your deliverable!
 
 # Groupwork Plan
 
-I expect each group member to try running VisualVM and experience profiling
-for him/herself.  I created individual repositories for each of you, so
-optimize your own code afrer profiling.  After both of you are done, compare
-the four methods that each of you optimized.  Discuss, resolve any
-differences, and submit.
+I expect each group member to try running VisualVM and experience profiling for
+him/herself.  I created individual repositories for each of you, so optimize
+your own code after profiling.  Please do individual submissions after you are
+done.
 
 # Resources
 
