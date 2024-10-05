@@ -14,9 +14,9 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Summer Semester 2024 - Exercise 4
+Fall Semester 2024 - Exercise 4
 
-* DUE: July 18 (Thursday), 2024 8:30 AM
+* DUE: October 16 (Wednesday), 2024 before start of class
 
 **GitHub Classroom Link:** TBD
 
