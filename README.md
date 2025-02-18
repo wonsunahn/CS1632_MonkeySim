@@ -10,13 +10,12 @@
     + [Run Pinning Tests for Candidate Methods](#run-pinning-tests-for-candidate-methods)
 - [Submission](#submission)
 - [GradeScope Feedback](#gradescope-feedback)
-- [Groupwork Plan](#groupwork-plan)
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Fall Semester 2024 - Exercise 4
+Spring Semester 2025 - Exercise 4
 
-* DUE: October 16 (Wednesday), 2024 before start of class
+* DUE: February 27 (Thursday), 2025 before start of class
 
 **GitHub Classroom Link:** TBD
 
@@ -462,13 +461,6 @@ up the monkey list to begin with monkey #5.  The simulation has a timeout of
 looking at the methods that I test, but please don't do that.  See if you can
 extract that information from the VisualVM tool.  The test output will not be
 so revealing on your deliverable!
-
-# Groupwork Plan
-
-I expect each group member to try running VisualVM and experience profiling for
-him/herself.  I created individual repositories for each of you, so optimize
-your own code after profiling.  Please do individual submissions after you are
-done.
 
 # Resources
 
