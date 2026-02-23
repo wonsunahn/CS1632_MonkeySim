@@ -13,9 +13,9 @@
 - [Resources](#resources)
 
 # Exercise 4 Performance Testing Exercise
-Fall Semester 2025 - Exercise 4
+Spring Semester 2026 - Exercise 4
 
-* DUE: October 15 (Wednesday), 2025 before start of class
+* DUE: March 3 (Tuesday), 2026 before start of class
 
 **GitHub Classroom Link:** TBD
 
