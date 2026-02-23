@@ -428,12 +428,10 @@ will run the autograder to grade you and give feedback.  If you get deductions,
 fix your code based on the feedback and resubmit.  Repeat until you don't get
 deductions.
 
-1. Please use the [ReportTemplate.docx](ReportTemplate.docx) file provided in
-   this directory to write a short report.  A PDF version of the file is at
-[ReportTemplate.pdf](ReportTemplate.pdf).  On the first page, attach
-hotspots-before.png generated before refactoring.  On the second page, attach
-hotspots-after.png generated after refactoring.  Submit the report to
-GradeScope at the **Exercise 4 Report** link.  
+1. Submit a report to GradeScope at the **Exercise 4 Report** link by attaching
+   the hotspots-before.png file generated before refactoring and the
+hotspots-after.png file generated after refactoring to the respective
+questions.  
 
 # GradeScope Feedback
 
